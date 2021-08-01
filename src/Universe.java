@@ -25,11 +25,12 @@ import javafx.stage.Stage;
 /*
 BlackHole 20.0e30 300e5 0 5.000000e12 0 0 0 0
 BlackHole 20.0e30 700e5 0 5.0e12 0 0 0 0
+BlackHole 20.0e30 4000e5 0 5.000000e12 0 0 0 0
 add the line above to the 'Bodies' file to simulate a very dense object pulling the entire solar system
 */
 
 /*
-File format: (double)mass (double)radius (double)startingX (double)startingY (double)startingZ (double)startingXV (double)startingYV (double)startingZV  (how to add a new body to the file)
+File format: (string)name (double)mass (double)radius (double)startingX (double)startingY (double)startingZ (double)startingXV (double)startingYV (double)startingZV  (how to add a new body to the file)
 the format to add a new body to the Bodies file
  */
 
@@ -75,7 +76,7 @@ public class Universe extends Application{
     //region MiscVars
     private ArrayList<Body> bodies = new ArrayList<>();//Stores all of the Body objects that keep track of the pos, vel, and acc of a particular body
     private boolean pauseTimer = false;//Keeps track if the simulation is paused or not
-    private int timeStep = 100000;//How fast the simulation runs (a timeStep of 1 is real time)
+    private int timeStep = 10000;//How fast the simulation runs (a timeStep of 1 is real time)
     //endregion
 
     @Override
@@ -213,12 +214,15 @@ public class Universe extends Application{
     private void prepareBodies() throws FileNotFoundException {
         Scanner file = new Scanner(new File("src\\Bodies"));
 
-        /*
+
         //Creates n random bodies but must comment out the file in order to work
-        for (int i = 0; i < 10; i++) {
-            bodies.add(new Body("",Math.random()*10000, Math.random()*1000, Math.random()>.5 ? Math.random()*10000 : Math.random()*-10000, Math.random()>.5 ? Math.random()*10000 : Math.random()*-10000, Math.random()>.5 ? Math.random()*10000 : Math.random()*-10000, Math.random()*100, Math.random()*100, Math.random()*100, new Sphere()));
+        /*
+        for (int i = 0; i < 200; i++) {
+            bodies.add(new Body("random"+i,Math.random()*100, Math.random()*1e5, Math.random()>.5 ? Math.random()*1e7 : Math.random()*-1e7, Math.random()>.5 ? Math.random()*1e7 : Math.random()*-1e7, Math.random()>.5 ? Math.random()*1e7 : Math.random()*-1e7, Math.random()*1e4, Math.random()*1e4, Math.random()*1e4, new Sphere()));
+            //bodies.add(new Body("random", 1.989e30, 696.34e5 * 500, 0, 0, 0, 5.89e9, 0, 0, new Sphere()));
         }//Creates n number of random bodies
         */
+
         while(file.hasNextLine()){
             bodies.add(new Body(file.next(), file.nextDouble(), file.nextDouble() * 500, file.nextDouble(), file.nextDouble(), file.nextDouble(), file.nextDouble(), file.nextDouble(), file.nextDouble() * 1e6, new Sphere()));
         }//Creates bodies by using a file
@@ -333,7 +337,7 @@ public class Universe extends Application{
 
         stage.addEventHandler(ScrollEvent.SCROLL, event -> {
             double movement = event.getDeltaY()*1e9;
-            //double movement = event.getDeltaY()*500;
+            //double movement = event.getDeltaY()*50000;
             group.translateZProperty().set(group.getTranslateZ() - movement);
         });//Handles the zooming with the mouse scroll wheel
     }

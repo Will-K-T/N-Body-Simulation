@@ -83,6 +83,7 @@ public class Body {
         //double dist = Math.sqrt(dx*dx + dy*dy);
         double F = (G * a.getMass() * b.getMass()) / (dist*dist + EPS*EPS);
         a.force = a.force.add(new Vector(F*dx/dist, F*dy/dist, F*dz/dist));
+        //a.force = a.force.add(new Vector(F*dx, F*dy, F*dz));
     }
 
     //region Gets and Sets
