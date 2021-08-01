@@ -1,4 +1,4 @@
-# N-Body-Simulation
+# N Body Simulation
 This is a colorful interpretation of the n-body simulation. An n-body simulation is a simulation of a dynamical system of particles, usually under the influence of physical forces; my implementation is focused on planets and how they pull on each other to create complex orbits. I used Newton’s equation of gravity to calculate the force that each body applies to each other. I also created and used my own vector class to store the force, acceleration, velocity, and position of each body in space. The use of vectors makes updating the positions of the bodies quite straightforward.
 
 Images:
